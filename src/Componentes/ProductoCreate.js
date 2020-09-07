@@ -1,45 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState} from "react";
 import {
     Container,
     TextField,
-    Checkbox,
-    FormControlLabel,
     Button,
     Icon,
     Grid,
-    Box,    
-    Select,
-    MenuItem,
     Typography,
     Breadcrumbs,
-    withStyles,
     Tooltip,
     Fab
 } from "@material-ui/core";
-//import LabelInformacion from "../Common/LabelInformation";
-//import { infoCookies, cookieControl, putApi, getApi, ID_SISTEMA_PEDENV, URL_API_SEGURIDADWEB,URL_API_CORE,URL_API_CONFIGURACION, postApi } from "../HttpHelper";
-//import Loading from "../Common/Loading";
-import { Link } from 'react-router-dom';
-//import {connect} from 'react-redux'
 
+import { Link} from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Message from '../Componentes/Message';
+
 const ProductoCreate = props => {
 
-    const { pages } = props; 
-    
-    //const idProductoProps = JSON.stringify(props.match.params.id);
+
+    const [mensaje, setMensaje] = useState(false);
+    const [tipoLabel, setTipoLabel] = useState("info");
+    const [openCollapse, setOpenCollapse] = useState(false);
+
     const [nombre, setNombre] = useState(null);
     const [marca, setMarca] = useState(null);
     const [costo, setCosto] = useState(null);
     const [precio, setPrecio] = useState(null);
-    //const [idProductoP, setidProductoP] = useState(idProductoP);
-    
-    //const [mensaje, setMensaje] = useState(false);
-    const [tipoLabel, setTipoLabel] = useState("info");
-    //const [loading, setLoading] = useState(false)
-    
 
-     const createProducto = () => {    
+   
+    const createProducto = () => {    
     
     if(nombre){    
                 if (nombre === null || nombre === undefined || nombre.trim().length === 0) {
@@ -63,6 +52,17 @@ const ProductoCreate = props => {
             return false;
         }
     
+    if(costo){    
+            if (costo === null || costo === undefined || costo.trim().length === 0) {
+                alert("Debe ingresar un costo");
+                return false;
+            }   
+    }
+    else{
+        alert("Debe ingresar un costo");
+        return false;
+    }    
+    
     if(precio){    
             if (precio === null || precio === undefined || precio.trim().length === 0) {
                 alert("Debe ingresar un precio");
@@ -74,18 +74,6 @@ const ProductoCreate = props => {
         return false;
     }
     
-    if(costo){    
-                if (costo === null || costo === undefined || costo.trim().length === 0) {
-                    alert("Debe ingresar un costo");
-                    return false;
-                }   
-    }
-    else{
-        alert("Debe ingresar un costo");
-        return false;
-    }
-  
-
     if(parseFloat(precio) < parseFloat(costo)){
         alert("El precio no puede ser menor que el costo");
         return false;
@@ -102,7 +90,6 @@ const ProductoCreate = props => {
         Precio: precio? parseFloat(precio) : 0,
     })
 
-    console.log('body: '+ body)
    
     window.fetch('https://localhost:44355/api/Productos', {
         method: "POST",
@@ -114,6 +101,13 @@ const ProductoCreate = props => {
       })
       .then(res => res.json())
       .then(response => {console.log('response: '+JSON.stringify(response))})
+      .finally(function()
+            {
+                setMensaje('Creado correctamente');
+                setOpenCollapse(true)
+                setTipoLabel("success");    
+            }
+        )
     }
 
 
@@ -135,13 +129,13 @@ const ProductoCreate = props => {
                     style={{
                         marginTop: 15
                     }}>
-                    {/* {mensaje && (
+                    {mensaje && (
                     <Grid container direction="row" justify="center" alignItems="center" >
-                        <LabelInformacion tipoLabel={tipoLabel} openCollapse={openCollapse} mensaje={mensaje} setOpenCollapse={setOpenCollapse} />
+                        <Message tipoLabel={tipoLabel} openCollapse={openCollapse} mensaje={mensaje} setOpenCollapse={setOpenCollapse} />
                     </Grid>
-                    )}         */}
+                    )}      
                     <Grid style={{ marginTop: 15 }} container xs={12} justify="center" alignItems="center" >
-                        <Grid item sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
+                        <Grid item={true} sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
                             <TextField
                                 label="Nombre"
                                 style={{
@@ -154,7 +148,7 @@ const ProductoCreate = props => {
                             />
                         </Grid>
 
-                        <Grid item sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
+                        <Grid item={true} sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
                             <TextField
                                 label="Marca"
                                 style={{
@@ -167,7 +161,7 @@ const ProductoCreate = props => {
                             />
                         </Grid>
 
-                        <Grid item sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
+                        <Grid item={true} sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
                             <TextField
                                 label="Costo"
                                 style={{
@@ -176,11 +170,12 @@ const ProductoCreate = props => {
                                 value={costo}
                                 onChange={event => setCosto(event.target.value)}
                                 inputMode="numeric"
+                                type="number"
                                 required
                             />
                         </Grid>
 
-                        <Grid item sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
+                        <Grid item={true} sm={12} style={{ paddingLeft: 40,paddingRight: 40 }}>
                             <TextField
                                 label="Precio"
                                 style={{
@@ -189,15 +184,15 @@ const ProductoCreate = props => {
                                 value={precio}
                                 onChange={event => setPrecio(event.target.value)}
                                 inputMode="numeric"
+                                type="number"
                                 required
                             />
                         </Grid>
                         
-                        <Grid container item xs={12} direction="row" alignItems="center" justify="center" style={{paddingTop: 50 }}>
+                        <Grid container item={true} xs={12} direction="row" alignItems="center" justify="center" style={{paddingTop: 50 }}>
                             <Button
                                     color="primary"
                                     style={{width: "92%" }}
-                                    //disabled={loading}
                                     variant="contained"
                                     type="submit"
                                     onClick={() => { createProducto()}}

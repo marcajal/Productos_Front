@@ -1,18 +1,14 @@
 import React from 'react';
 import {ListaProductos} from './Componentes/ListaProductos'
-import {
-  Typography
- }  from "@material-ui/core";
-  import Titulo from './Componentes/Titulo';
-  import {Route, Switch, BrowserRouter as Router } from "react-router-dom";
-//import { useState } from 'react';
+import {Typography}  from "@material-ui/core";
+import Titulo from './Componentes/Titulo';
+import {Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import ProductoCreate from './Componentes/ProductoCreate';
-import Test from './Componentes/Test';
+import ProductoUpdate from './Componentes/ProductoUpdate';
+
 
 function App() {
- 
-  return (  
-    
+  return (      
       <Router>
           <Typography variant="h5" align="center" style={{fontFamily:"monospace"}}>
               <Titulo/>
@@ -24,14 +20,11 @@ function App() {
                 <Route path="/create" exact>
                   <ProductoCreate/>
                 </Route>
-                <Route path="/prueba" exact>
-                  <Test/>
-                </Route>
+                <Route path="/edit/:id/" exact>
+                  <ProductoUpdate/>
+                  </Route>  
               </Switch>
-      </Router>
-
-    
-         
+      </Router>     
   );
 }
 
