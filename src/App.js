@@ -1,25 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {ListaProductos} from './Componentes/ListaProductos'
+import {
+  Typography
+ }  from "@material-ui/core";
+  import Titulo from './Componentes/Titulo';
+  import {Route, Switch, BrowserRouter as Router } from "react-router-dom";
+//import { useState } from 'react';
+import ProductoCreate from './Componentes/ProductoCreate';
+import Test from './Componentes/Test';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+ 
+  return (  
+    
+      <Router>
+          <Typography variant="h5" align="center" style={{fontFamily:"monospace"}}>
+              <Titulo/>
+          </Typography>
+              <Switch>
+                <Route path="/" exact>    
+                  <ListaProductos/> 
+                </Route>
+                <Route path="/create" exact>
+                  <ProductoCreate/>
+                </Route>
+                <Route path="/prueba" exact>
+                  <Test/>
+                </Route>
+              </Switch>
+      </Router>
+
+    
+         
   );
 }
 
