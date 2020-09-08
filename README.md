@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+* Ejecutar npm install en la consola, ubicado en el directorio del proyecto
+* Finalizado el npm install, ejecutar en la consola npm start
+
 ## Available Scripts
 
 In the project directory, you can run:
