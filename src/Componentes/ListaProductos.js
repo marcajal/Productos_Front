@@ -70,8 +70,7 @@ export const ListaProductos = () =>
                 setMensaje('Eliminado correctamente');
                 setOpenCollapse(true)
                 setTipoLabel("success");
-                obtenerDatos();
-                    
+                setTimeout(() => obtenerDatos(), 3000);
             }
         )
     }
@@ -82,7 +81,8 @@ export const ListaProductos = () =>
     },[])
         
 
-     const obtenerDatos = async () => {    
+     const obtenerDatos = async () => {  
+        setMensaje(false);  
         fetch('https://localhost:44355/api/Productos')
         .then(res => res.json())
         .then(response => {

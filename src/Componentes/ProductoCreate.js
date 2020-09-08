@@ -142,7 +142,13 @@ const ProductoCreate = props => {
                                     width: "100%"
                                 }}
                                 value={nombre}
-                                onChange={event => setNombre(event.target.value)}
+                                onChange={event => 
+                                                    {
+                                                        setNombre(event.target.value)
+                                                        setMensaje(false);
+                                                        setOpenCollapse(false)
+                                                    }
+                                         }
                                 inputMode="text"
                                 required
                             />
@@ -155,7 +161,13 @@ const ProductoCreate = props => {
                                     width: "100%"
                                 }}
                                 value={marca}
-                                onChange={event => setMarca(event.target.value)}
+                                onChange={event => 
+                                    {
+                                        setMarca(event.target.value)
+                                        setMensaje(false);
+                                        setOpenCollapse(false)
+                                    }
+                         }
                                 inputMode="text"
                                 required
                             />
@@ -168,7 +180,13 @@ const ProductoCreate = props => {
                                     width: "100%"
                                 }}
                                 value={costo}
-                                onChange={event => setCosto(event.target.value)}
+                                onChange={event => 
+                                    {
+                                        setCosto(event.target.value)
+                                        setMensaje(false);
+                                        setOpenCollapse(false)
+                                    }
+                         }
                                 inputMode="numeric"
                                 type="number"
                                 required
@@ -182,7 +200,13 @@ const ProductoCreate = props => {
                                     width: "100%"
                                 }}
                                 value={precio}
-                                onChange={event => setPrecio(event.target.value)}
+                                onChange={event => 
+                                    {
+                                        setPrecio(event.target.value)
+                                        setMensaje(false);
+                                        setOpenCollapse(false)
+                                    }
+                         }
                                 inputMode="numeric"
                                 type="number"
                                 required
